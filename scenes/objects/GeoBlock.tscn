@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://drj30p1g7qnty"]
 
-[ext_resource type="Texture2D" uid="uid://b5rl4wx80rcmc" path="res://assets/sprites/blocks/geo_block_default.png" id="1_hkwq7"]
 [ext_resource type="Script" uid="uid://dvw1i4n6bh05g" path="res://scenes/objects/GeoBlock.gd" id="1_r7q3m"]
+[ext_resource type="Texture2D" uid="uid://btfivg507ssoq" path="res://assets/sprites/blocks/geo_block_triangle.png" id="2_6cdi1"]
 
 [sub_resource type="RectangleShape2D" id="rect_shape_1"]
 size = Vector2(32, 32)
@@ -10,7 +10,7 @@ size = Vector2(32, 32)
 script = ExtResource("1_r7q3m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_hkwq7")
+texture = ExtResource("2_6cdi1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("rect_shape_1")
