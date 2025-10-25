@@ -1,10 +1,12 @@
 extends Node
 
 static func lerp_transform(from: Transform2D, to: Transform2D, weight: float) -> Transform2D:
-	var result := Transform2D()
-	result.origin = from.origin.lerp(to.origin, weight)
-	result.rotation = from.rotation + angle_difference(from.rotation, to.rotation) * weight
-	result.scale = from.scale.lerp(to.scale, weight)
+	var lerped_origin := from.origin.lerp(to.origin, weight)
+	var lerped_rotation := lerp_angle(from.get_rotation(), to.get_rotation(), weight)
+	var lerped_scale := from.get_scale().lerp(to.get_scale(), weight)
+	
+	var result := Transform2D(lerped_rotation, lerped_origin)
+	result = result.scaled(lerped_scale)
 	return result
 
 static func angle_difference(from_degrees: float, to_degrees: float) -> float:
