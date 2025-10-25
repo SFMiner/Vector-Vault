@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhgo1r7kq8ka4"]
+
+[ext_resource type="Script" uid="uid://7aoy6xn60inr" path="res://scenes/player/VectorTool.gd" id="1_script"]
+
+[node name="VectorTool" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="AimLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 100, 0)
+width = 2.0
+default_color = Color(1, 1, 1, 0.5)
+
+[node name="Reticle" type="Sprite2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -1.0
+offset_top = -5.0
+offset_right = 21.0
+offset_bottom = 6.0

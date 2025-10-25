@@ -12,9 +12,13 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		print("jumped")
 		velocity.y = jump_velocity
 
 	var direction := Input.get_axis("move_left", "move_right")
+	if direction >0: 
+		$Sprite2D.flip_h = true
 	velocity.x = direction * move_speed
+	
 
 	move_and_slide()

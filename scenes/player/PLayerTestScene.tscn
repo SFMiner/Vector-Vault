@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1it28w5u47h6"]
+
+[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_au4t4"]
+[ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="2_4k2gg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_au4t4"]
+size = Vector2(361, 20)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_au4t4")]
+position = Vector2(275, 169)
+
+[node name="GeoBlock" parent="." instance=ExtResource("2_4k2gg")]
+position = Vector2(736, 146)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(193, 185)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(170.5, 0)
+shape = SubResource("RectangleShape2D_au4t4")
