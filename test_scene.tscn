@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://77t4diith1lh"]
+
+[ext_resource type="Script" uid="uid://bujlcepg027je" path="res://test_script.gd" id="1_uhqqe"]
+[ext_resource type="PackedScene" path="res://scenes/objects/GeoBlock.tscn" id="2_ia1lp"]
+
+[node name="TestScene" type="Node"]
+script = ExtResource("1_uhqqe")
+
+[node name="GeoBlock" parent="." instance=ExtResource("2_ia1lp")]
+position = Vector2(461, 163)
+
+[node name="GeoBlock2" parent="." instance=ExtResource("2_ia1lp")]
+position = Vector2(494, 46)

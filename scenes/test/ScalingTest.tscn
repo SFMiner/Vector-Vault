@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
+[ext_resource type="Script" path="res://scenes/test/ScalingTest.gd" id="1_script"]
+
+[node name="ScalingTest" type="Node2D"]
+
+[node name="GeoBlock" parent="." instance=ExtResource("1_geoblock")]
+position = Vector2(300, 300)
+
+[node name="TestScript" type="Node" parent="."]
+script = ExtResource("1_script")

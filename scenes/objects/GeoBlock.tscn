@@ -1,21 +1,24 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://drj30p1g7qnty"]
 
-[ext_resource type="Script" path="res://scenes/objects/GeoBlock.gd" id="1_r7q3m"]
+[ext_resource type="Texture2D" uid="uid://b5rl4wx80rcmc" path="res://assets/sprites/blocks/geo_block_default.png" id="1_hkwq7"]
+[ext_resource type="Script" uid="uid://dvw1i4n6bh05g" path="res://scenes/objects/GeoBlock.gd" id="1_r7q3m"]
 
 [sub_resource type="RectangleShape2D" id="rect_shape_1"]
 size = Vector2(32, 32)
 
-[node name="GeoBlock" type="StaticBody2D" script=ExtResource("1_r7q3m")]
+[node name="GeoBlock" type="StaticBody2D"]
+script = ExtResource("1_r7q3m")
 
-[node name="Sprite2D" type="Sprite2D" parent="GeoBlock"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hkwq7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GeoBlock"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("rect_shape_1")
 
-[node name="Highlight" type="ColorRect" parent="GeoBlock"]
+[node name="Highlight" type="ColorRect" parent="."]
+visible = false
 offset_left = -18.0
 offset_top = -18.0
 offset_right = 18.0
 offset_bottom = 18.0
 color = Color(1, 1, 0, 0.3)
-visible = false
