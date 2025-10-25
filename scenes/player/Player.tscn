@@ -21,5 +21,5 @@ shape = SubResource("rect_shape_1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="VectorTool" parent="." instance=ExtResource("1_wr5hl")]
+[node name="VectorTool" parent="Sprite2D" instance=ExtResource("1_wr5hl")]
 position = Vector2(0, -16)

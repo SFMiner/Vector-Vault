@@ -34,3 +34,22 @@ Example from Rotation.gd:
 Example:
 - `rotation_degrees = 90` rotates 90° counter-clockwise
 - `rotation_degrees = -90` rotates 90° clockwise
+
+## Control Node Anchoring (Godot 4.5)
+
+**Issue:** Setting anchors_preset to anything other than FullRect or Custom (-1) causes Control nodes to disappear/become invisible, regardless of size settings.
+
+**Solution:** Use Custom anchoring with explicit offsets:
+```
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -40.0    (negative half-width)
+offset_top = -40.0     (negative half-height)
+offset_right = 40.0    (positive half-width)
+offset_bottom = 40.0   (positive half-height)
+```
+
+This creates an 80×80 control centered at (0,0) relative to its parent.

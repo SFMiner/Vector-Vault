@@ -21,8 +21,10 @@ func _ready() -> void:
 func set_selected(value: bool) -> void:
 	is_selected = value
 	if is_selected:
+		$Highlight.visible = true
 		selected.emit()
 	else:
+		$Highlight.visible = false
 		deselected.emit()
 
 func apply_transformation(transformation: TransformationBase, params: Dictionary) -> void:
@@ -30,5 +32,5 @@ func apply_transformation(transformation: TransformationBase, params: Dictionary
 	transformation_completed.emit()
 
 func reset_to_original() -> void:
-	var tween := create_tween()
+	var tween = create_tween()
 	tween.tween_property(self, "transform", original_transform, 0.3)

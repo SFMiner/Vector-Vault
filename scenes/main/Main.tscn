@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://csj8fapb706b3"]
+[gd_scene load_steps=6 format=3 uid="uid://bafy485c4p00m"]
 
 [ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
 [ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
-[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="3_1lb1k"]
+[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="1_radialmenu"]
+[ext_resource type="Script" uid="uid://b05533ybls5s2" path="res://scenes/main/Main.gd" id="1_script"]
 
 [sub_resource type="RectangleShape2D" id="floor_shape"]
 size = Vector2(800, 50)
 
-[node name="VectorToolTest" type="Node2D"]
+[node name="Main" type="Node2D"]
+script = ExtResource("1_script")
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(400, 500)
@@ -18,16 +20,12 @@ position = Vector2(300, 400)
 [node name="GeoBlock2" parent="." instance=ExtResource("1_geoblock")]
 position = Vector2(500, 400)
 
-[node name="GeoBlock3" parent="." instance=ExtResource("1_geoblock")]
-position = Vector2(400, 300)
-
-[node name="GeoBlock4" parent="." instance=ExtResource("1_geoblock")]
-position = Vector2(400, 200)
-
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(400, 550)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("floor_shape")
 
-[node name="RadialMenu" parent="." instance=ExtResource("3_1lb1k")]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="RadialMenu" parent="UI" instance=ExtResource("1_radialmenu")]
