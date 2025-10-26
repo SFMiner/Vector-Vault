@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://buu5214nk88d"]
+[gd_scene load_steps=16 format=3 uid="uid://buu5214nk88d"]
 
 [ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
 [ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://mrelmchvje68" path="res://scenes/levels/world_1_shifted_plains/World_1_Level_3.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dllot6xneia56" path="res://scenes/ui/instruction.gd" id="9_s6riq"]
+[ext_resource type="StyleBox" uid="uid://cwg2a2svkoesv" path="res://scenes/ui/instruction.tres" id="10_f7ai7"]
+[ext_resource type="StyleBox" uid="uid://cg5tfkaucchjf" path="res://scenes/ui/instruction_button.tres" id="11_ugqwg"]
 [ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
 [ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
@@ -14,6 +17,11 @@ size = Vector2(600, 50)
 
 [sub_resource type="RectangleShape2D" id="vertical_platform"]
 size = Vector2(50, 300)
+
+[sub_resource type="Theme" id="Theme_34fr4"]
+
+[sub_resource type="Theme" id="Theme_5jlw3"]
+Button/colors/font_color = Color(0, 0, 0, 1)
 
 [node name="World_1_Level_3" type="Node2D"]
 script = ExtResource("1_script")
@@ -51,11 +59,23 @@ vertical_alignment = 1
 [node name="HorizontalFloor" type="StaticBody2D" parent="."]
 position = Vector2(400, 550)
 
+[node name="ColorRect" type="ColorRect" parent="HorizontalFloor"]
+offset_left = -300.0
+offset_top = -26.0
+offset_right = 298.0
+offset_bottom = 23.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HorizontalFloor"]
 shape = SubResource("horizontal_platform")
 
 [node name="VerticalFloor" type="StaticBody2D" parent="."]
 position = Vector2(150, 350)
+
+[node name="ColorRect" type="ColorRect" parent="VerticalFloor"]
+offset_left = -23.0
+offset_top = -151.0
+offset_right = 24.0
+offset_bottom = 150.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VerticalFloor"]
 shape = SubResource("vertical_platform")
@@ -79,3 +99,45 @@ grow_vertical = 0
 layout_mode = 3
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Instruction" type="Node2D" parent="UI"]
+script = ExtResource("9_s6riq")
+panel_color = Color(0.39215687, 1, 1, 1)
+label_text = "Navigate multiple platforms. Reach the goal door."
+
+[node name="Panel" type="Panel" parent="UI/Instruction"]
+offset_right = 285.0
+offset_bottom = 70.0
+theme = SubResource("Theme_34fr4")
+theme_override_styles/panel = ExtResource("10_f7ai7")
+
+[node name="InstructionsLabel" type="Label" parent="UI/Instruction"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 272.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = ExtResource("11_ugqwg")
+text = "Navigate multiple platforms. Reach the goal door."
+autowrap_mode = 3
+
+[node name="ShowHideButton" type="Button" parent="UI/Instruction"]
+offset_left = 238.0
+offset_right = 285.0
+offset_bottom = 31.0
+theme = SubResource("Theme_5jlw3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
+theme_override_styles/normal = ExtResource("11_ugqwg")
+text = " hide "
+
+[connection signal="pressed" from="UI/Instruction/ShowHideButton" to="UI/Instruction" method="_on_show_hide_button_pressed"]

@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvs3reorao262"]
+[gd_scene load_steps=16 format=3 uid="uid://bvs3reorao262"]
 
 [ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
 [ext_resource type="Script" uid="uid://duda30i2icypf" path="res://scenes/levels/world_2_pivoting_spires/World_2_Level_1.gd" id="1_p4rvw"]
 [ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://dllot6xneia56" path="res://scenes/ui/instruction.gd" id="9_s6riq"]
+[ext_resource type="StyleBox" uid="uid://cwg2a2svkoesv" path="res://scenes/ui/instruction.tres" id="10_f7ai7"]
+[ext_resource type="StyleBox" uid="uid://cg5tfkaucchjf" path="res://scenes/ui/instruction_button.tres" id="11_ugqwg"]
 [ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
 [ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
@@ -14,6 +17,11 @@ size = Vector2(300, 50)
 
 [sub_resource type="RectangleShape2D" id="right_platform"]
 size = Vector2(300, 50)
+
+[sub_resource type="Theme" id="Theme_34fr4"]
+
+[sub_resource type="Theme" id="Theme_5jlw3"]
+Button/colors/font_color = Color(0, 0, 0, 1)
 
 [node name="World_2_Level_1" type="Node2D"]
 script = ExtResource("1_p4rvw")
@@ -54,11 +62,23 @@ vertical_alignment = 1
 [node name="LeftPlatform" type="StaticBody2D" parent="Floor"]
 position = Vector2(200, 450)
 
+[node name="ColorRect" type="ColorRect" parent="Floor/LeftPlatform"]
+offset_left = -153.0
+offset_top = -26.0
+offset_right = 151.0
+offset_bottom = 23.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/LeftPlatform"]
 shape = SubResource("left_platform")
 
 [node name="RightPlatform" type="StaticBody2D" parent="Floor"]
 position = Vector2(600, 450)
+
+[node name="ColorRect" type="ColorRect" parent="Floor/RightPlatform"]
+offset_left = -151.0
+offset_top = -26.0
+offset_right = 150.0
+offset_bottom = 23.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/RightPlatform"]
 shape = SubResource("right_platform")
@@ -82,3 +102,45 @@ grow_vertical = 0
 layout_mode = 3
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Instruction" type="Node2D" parent="UI"]
+script = ExtResource("9_s6riq")
+panel_color = Color(0.39215687, 1, 1, 1)
+label_text = "Use rotation to navigate the spires. Pivot around fixed points."
+
+[node name="Panel" type="Panel" parent="UI/Instruction"]
+offset_right = 342.0
+offset_bottom = 80.0
+theme = SubResource("Theme_34fr4")
+theme_override_styles/panel = ExtResource("10_f7ai7")
+
+[node name="InstructionsLabel" type="Label" parent="UI/Instruction"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 13.0
+offset_right = 295.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = ExtResource("11_ugqwg")
+text = "Use rotation to navigate the spires. Pivot around fixed points."
+autowrap_mode = 3
+
+[node name="ShowHideButton" type="Button" parent="UI/Instruction"]
+offset_left = 295.0
+offset_right = 342.0
+offset_bottom = 31.0
+theme = SubResource("Theme_5jlw3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
+theme_override_styles/normal = ExtResource("11_ugqwg")
+text = " hide "
+
+[connection signal="pressed" from="UI/Instruction/ShowHideButton" to="UI/Instruction" method="_on_show_hide_button_pressed"]

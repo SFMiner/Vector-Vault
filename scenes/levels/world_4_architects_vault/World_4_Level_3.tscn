@@ -1,0 +1,172 @@
+[gd_scene load_steps=20 format=3 uid="uid://cqjl8bavjc7j3"]
+
+[ext_resource type="Script" uid="uid://b3g5at7w2kic0" path="res://scenes/levels/world_4_architects_vault/World_4_Level_3.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b5rl4wx80rcmc" path="res://assets/sprites/blocks/geo_block_default.png" id="1_texture"]
+[ext_resource type="Script" uid="uid://dllot6xneia56" path="res://scenes/ui/instruction.gd" id="9_s6riq"]
+[ext_resource type="StyleBox" uid="uid://cwg2a2svkoesv" path="res://scenes/ui/instruction.tres" id="10_f7ai7"]
+[ext_resource type="StyleBox" uid="uid://cg5tfkaucchjf" path="res://scenes/ui/instruction_button.tres" id="11_ugqwg"]
+[ext_resource type="PackedScene" uid="uid://cmfydtj541u0l" path="res://scenes/objects/Anchor.tscn" id="anchor"]
+[ext_resource type="PackedScene" path="res://scenes/objects/Door.tscn" id="door"]
+[ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="geoblock"]
+[ext_resource type="PackedScene" path="res://scenes/objects/PressurePlate.tscn" id="pressure_plate"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformPreview.tscn" id="ui_preview"]
+[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="ui_radialmenu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/SequenceRecorder.tscn" id="ui_sequence"]
+
+[sub_resource type="RectangleShape2D" id="rect_500x50"]
+size = Vector2(500, 50)
+
+[sub_resource type="RectangleShape2D" id="rect_150x50"]
+size = Vector2(150, 50)
+
+[sub_resource type="Theme" id="Theme_34fr4"]
+
+[sub_resource type="Theme" id="Theme_5jlw3"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+
+[node name="World_4_Level_3" type="Node2D"]
+script = ExtResource("1_script")
+level_name = "Vault 4-3 - Architect's Challenge"
+world_number = 4
+level_number = 3
+
+[node name="Player" parent="." instance=ExtResource("geoblock")]
+position = Vector2(150, 500)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="MainPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(300, 550)
+
+[node name="ColorRect" type="ColorRect" parent="Floor/MainPlatform"]
+offset_left = -253.0
+offset_top = -25.0
+offset_right = 249.0
+offset_bottom = 25.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/MainPlatform"]
+shape = SubResource("rect_500x50")
+
+[node name="RightPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(750, 510)
+
+[node name="ColorRect2" type="ColorRect" parent="Floor/RightPlatform"]
+offset_left = -75.0
+offset_top = -25.0
+offset_right = 75.0
+offset_bottom = 26.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/RightPlatform"]
+shape = SubResource("rect_150x50")
+
+[node name="Block1" parent="." instance=ExtResource("geoblock")]
+position = Vector2(250, 450)
+
+[node name="Block2" parent="." instance=ExtResource("geoblock")]
+position = Vector2(350, 450)
+
+[node name="Block3" parent="." instance=ExtResource("geoblock")]
+position = Vector2(450, 450)
+
+[node name="GhostOutline1" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.3)
+position = Vector2(500, 350)
+texture = ExtResource("1_texture")
+
+[node name="GhostOutline2" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.3)
+position = Vector2(600, 350)
+texture = ExtResource("1_texture")
+
+[node name="GhostOutline3" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.3)
+position = Vector2(700, 350)
+texture = ExtResource("1_texture")
+
+[node name="Pivot1" parent="." instance=ExtResource("anchor")]
+position = Vector2(550, 400)
+
+[node name="PressurePlate" parent="." instance=ExtResource("pressure_plate")]
+position = Vector2(750, 492)
+required_weight = 3.0
+
+[node name="Door" parent="." instance=ExtResource("door")]
+position = Vector2(820, 450)
+
+[node name="HintLabel" type="Label" parent="."]
+offset_left = 300.0
+offset_top = 250.0
+offset_right = 500.0
+offset_bottom = 270.0
+text = "The ultimate test of mastery!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="RadialMenu" parent="UI" instance=ExtResource("ui_radialmenu")]
+
+[node name="TransformPreview" parent="UI" instance=ExtResource("ui_preview")]
+
+[node name="TransformParameterPanel" parent="UI" instance=ExtResource("ui_panel")]
+layout_mode = 3
+
+[node name="DebugPanel" parent="UI" instance=ExtResource("ui_debug")]
+layout_mode = 3
+anchors_preset = 1
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SequenceRecorder" parent="UI" instance=ExtResource("ui_sequence")]
+
+[node name="LevelCompletePanel" parent="UI" instance=ExtResource("ui_complete")]
+layout_mode = 3
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Instruction" type="Node2D" parent="UI"]
+position = Vector2(350, 5)
+script = ExtResource("9_s6riq")
+panel_color = Color(0.39215687, 1, 1, 1)
+label_text = "The ultimate test of mastery! Position all three blocks. Activate the plate!"
+
+[node name="Panel" type="Panel" parent="UI/Instruction"]
+offset_right = 298.0
+offset_bottom = 94.0
+theme = SubResource("Theme_34fr4")
+theme_override_styles/panel = ExtResource("10_f7ai7")
+
+[node name="ShowHideButton" type="Button" parent="UI/Instruction"]
+offset_left = 248.0
+offset_top = 2.0
+offset_right = 295.0
+offset_bottom = 33.0
+theme = SubResource("Theme_5jlw3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
+theme_override_styles/normal = ExtResource("11_ugqwg")
+text = " hide "
+
+[node name="InstructionsLabel" type="Label" parent="UI/Instruction"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 262.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = ExtResource("11_ugqwg")
+text = "The ultimate test of mastery! Position all three blocks. Activate the plate!"
+autowrap_mode = 3
+
+[connection signal="pressed" from="UI/Instruction/ShowHideButton" to="UI/Instruction" method="_on_show_hide_button_pressed"]

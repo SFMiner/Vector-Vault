@@ -9,7 +9,10 @@ var level_paths: Dictionary = {
 	"Spires 2-1": "res://scenes/levels/world_2_pivoting_spires/World_2_Level_1.tscn",
 	"Spires 2-2": "res://scenes/levels/world_2_pivoting_spires/World_2_Level_2.tscn",
 	"Ruins 3-1": "res://scenes/levels/world_3_resizing_ruins/World_3_Level_1.tscn",
-	"Ruins 3-2": "res://scenes/levels/world_3_resizing_ruins/World_3_Level_2.tscn"
+	"Ruins 3-2": "res://scenes/levels/world_3_resizing_ruins/World_3_Level_2.tscn",
+	"Vault 4-1": "res://scenes/levels/world_4_architects_vault/World_4_Level_1.tscn",
+	"Vault 4-2": "res://scenes/levels/world_4_architects_vault/World_4_Level_2.tscn",
+	"Vault 4-3 - Architect's Challenge": "res://scenes/levels/world_4_architects_vault/World_4_Level_3.tscn"
 }
 
 var level_order: Array[String] = [
@@ -19,7 +22,10 @@ var level_order: Array[String] = [
 	"Spires 2-1",
 	"Spires 2-2",
 	"Ruins 3-1",
-	"Ruins 3-2"
+	"Ruins 3-2",
+	"Vault 4-1",
+	"Vault 4-2",
+	"Vault 4-3 - Architect's Challenge"
 ]
 
 func load_level(level_name: String) -> void:

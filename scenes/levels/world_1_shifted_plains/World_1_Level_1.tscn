@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bule75dsquwke"]
+[gd_scene load_steps=15 format=3 uid="uid://bule75dsquwke"]
 
 [ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
 [ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://de21pdada1wh" path="res://scenes/levels/world_1_shifted_plains/World_1_Level_1.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dllot6xneia56" path="res://scenes/ui/instruction.gd" id="9_s6riq"]
+[ext_resource type="StyleBox" uid="uid://cwg2a2svkoesv" path="res://scenes/ui/instruction.tres" id="10_f7ai7"]
+[ext_resource type="StyleBox" uid="uid://cg5tfkaucchjf" path="res://scenes/ui/instruction_button.tres" id="11_ugqwg"]
 [ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
 [ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
@@ -11,6 +14,11 @@
 
 [sub_resource type="RectangleShape2D" id="floor_shape"]
 size = Vector2(800, 50)
+
+[sub_resource type="Theme" id="Theme_34fr4"]
+
+[sub_resource type="Theme" id="Theme_5jlw3"]
+Button/colors/font_color = Color(0, 0, 0, 1)
 
 [node name="World_1_Level_1" type="Node2D"]
 script = ExtResource("1_script")
@@ -41,6 +49,12 @@ position = Vector2(400, 450)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("floor_shape")
 
+[node name="ColorRect" type="ColorRect" parent="Floor"]
+offset_left = -397.0
+offset_top = -24.0
+offset_right = 399.0
+offset_bottom = 23.0
+
 [node name="Gap" type="StaticBody2D" parent="."]
 position = Vector2(500, 450)
 
@@ -63,3 +77,46 @@ grow_vertical = 0
 layout_mode = 3
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Instruction" type="Node2D" parent="UI"]
+script = ExtResource("9_s6riq")
+panel_color = Color(0.39215687, 1, 1, 1)
+label_text = "Move the block to the green target marker."
+
+[node name="Panel" type="Panel" parent="UI/Instruction"]
+offset_right = 245.0
+offset_bottom = 70.0
+theme = SubResource("Theme_34fr4")
+theme_override_styles/panel = ExtResource("10_f7ai7")
+
+[node name="InstructionsLabel" type="Label" parent="UI/Instruction"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 203.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = ExtResource("11_ugqwg")
+text = "Move the block to the green target marker."
+autowrap_mode = 3
+
+[node name="ShowHideButton" type="Button" parent="UI/Instruction"]
+offset_left = 198.0
+offset_top = 3.0
+offset_right = 245.0
+offset_bottom = 34.0
+theme = SubResource("Theme_5jlw3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
+theme_override_styles/normal = ExtResource("11_ugqwg")
+text = " hide "
+
+[connection signal="pressed" from="UI/Instruction/ShowHideButton" to="UI/Instruction" method="_on_show_hide_button_pressed"]

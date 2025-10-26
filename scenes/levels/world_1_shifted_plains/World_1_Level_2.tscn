@@ -1,13 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://ca8gbf8hxc2v"]
+[gd_scene load_steps=17 format=3 uid="uid://cg43j76bq2g23"]
 
-[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
-[ext_resource type="Script" path="res://scenes/levels/world_1_shifted_plains/World_1_Level_2.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="ui_radialmenu"]
-[ext_resource type="PackedScene" path="res://scenes/ui/TransformPreview.tscn" id="ui_preview"]
-[ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
+[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://6k6lrfsga0wr" path="res://scenes/levels/world_1_shifted_plains/World_1_Level_2.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dllot6xneia56" path="res://scenes/ui/instruction.gd" id="9_s6riq"]
+[ext_resource type="StyleBox" uid="uid://cwg2a2svkoesv" path="res://scenes/ui/instruction.tres" id="10_f7ai7"]
+[ext_resource type="StyleBox" uid="uid://cg5tfkaucchjf" path="res://scenes/ui/instruction_button.tres" id="11_ugqwg"]
 [ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformPreview.tscn" id="ui_preview"]
+[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="ui_radialmenu"]
 
 [sub_resource type="RectangleShape2D" id="platform_shape"]
 size = Vector2(200, 50)
@@ -18,10 +21,14 @@ size = Vector2(100, 50)
 [sub_resource type="RectangleShape2D" id="right_platform_shape"]
 size = Vector2(200, 50)
 
+[sub_resource type="Theme" id="Theme_34fr4"]
+
+[sub_resource type="Theme" id="Theme_5jlw3"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+
 [node name="World_1_Level_2" type="Node2D"]
 script = ExtResource("1_script")
 level_name = "Plains 1-2"
-world_number = 1
 level_number = 2
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
@@ -62,17 +69,35 @@ position = Vector2(150, 450)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftFloor"]
 shape = SubResource("platform_shape")
 
+[node name="ColorRect" type="ColorRect" parent="LeftFloor"]
+offset_left = -103.0
+offset_top = -26.0
+offset_right = 98.0
+offset_bottom = 23.0
+
 [node name="MiddleFloor" type="StaticBody2D" parent="."]
 position = Vector2(450, 450)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MiddleFloor"]
 shape = SubResource("middle_platform_shape")
 
+[node name="ColorRect" type="ColorRect" parent="MiddleFloor"]
+offset_left = -103.0
+offset_top = -26.0
+offset_right = 50.0
+offset_bottom = 23.0
+
 [node name="RightFloor" type="StaticBody2D" parent="."]
 position = Vector2(650, 450)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightFloor"]
 shape = SubResource("right_platform_shape")
+
+[node name="ColorRect" type="ColorRect" parent="RightFloor"]
+offset_left = -103.0
+offset_top = -26.0
+offset_right = 98.0
+offset_bottom = 23.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -81,7 +106,59 @@ shape = SubResource("right_platform_shape")
 [node name="TransformPreview" parent="UI" instance=ExtResource("ui_preview")]
 
 [node name="TransformParameterPanel" parent="UI" instance=ExtResource("ui_panel")]
+layout_mode = 3
 
 [node name="DebugPanel" parent="UI" instance=ExtResource("ui_debug")]
+layout_mode = 3
+anchors_preset = 1
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="LevelCompletePanel" parent="UI" instance=ExtResource("ui_complete")]
+layout_mode = 3
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Instruction" type="Node2D" parent="UI"]
+script = ExtResource("9_s6riq")
+panel_color = Color(0.39215687, 1, 1, 1)
+label_text = "Use the bridge to cross the gap. Move the block strategically."
+
+[node name="Panel" type="Panel" parent="UI/Instruction"]
+offset_right = 306.0
+offset_bottom = 90.0
+theme = SubResource("Theme_34fr4")
+theme_override_styles/panel = ExtResource("10_f7ai7")
+
+[node name="InstructionsLabel" type="Label" parent="UI/Instruction"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 300.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = ExtResource("11_ugqwg")
+text = "Use the bridge to cross the gap. 
+Move the block strategically."
+autowrap_mode = 3
+
+[node name="ShowHideButton" type="Button" parent="UI/Instruction"]
+offset_left = 259.0
+offset_top = 4.0
+offset_right = 306.0
+offset_bottom = 35.0
+theme = SubResource("Theme_5jlw3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
+theme_override_styles/normal = ExtResource("11_ugqwg")
+text = " hide "
+
+[connection signal="pressed" from="UI/Instruction/ShowHideButton" to="UI/Instruction" method="_on_show_hide_button_pressed"]

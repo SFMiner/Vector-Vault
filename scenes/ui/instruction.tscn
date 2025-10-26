@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://ig1kk0ccankg"]
+
+[ext_resource type="Script" uid="uid://dllot6xneia56" path="res://scenes/ui/instruction.gd" id="1_34fr4"]
+[ext_resource type="StyleBox" uid="uid://cwg2a2svkoesv" path="res://scenes/ui/instruction.tres" id="2_n0bhg"]
+[ext_resource type="StyleBox" uid="uid://cg5tfkaucchjf" path="res://scenes/ui/instruction_button.tres" id="3_5jlw3"]
+
+[sub_resource type="Theme" id="Theme_34fr4"]
+
+[sub_resource type="Theme" id="Theme_5jlw3"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+
+[node name="Instruction" type="Node2D"]
+script = ExtResource("1_34fr4")
+panel_color = Color(0.39215687, 1, 1, 1)
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 717.0
+offset_bottom = 130.0
+theme = SubResource("Theme_34fr4")
+theme_override_styles/panel = ExtResource("2_n0bhg")
+
+[node name="ShowHideButton" type="Button" parent="."]
+offset_right = 42.0
+offset_bottom = 31.0
+theme = SubResource("Theme_5jlw3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
+theme_override_styles/normal = ExtResource("3_5jlw3")
+text = " hide "
+
+[node name="InstructionsLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 215.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = ExtResource("3_5jlw3")
+autowrap_mode = 3
+
+[connection signal="pressed" from="ShowHideButton" to="." method="_on_show_hide_button_pressed"]
