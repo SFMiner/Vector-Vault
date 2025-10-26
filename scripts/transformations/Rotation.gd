@@ -7,6 +7,7 @@ func _init():
 	color = Color.GOLD
 
 func apply(target: Node2D, params: Dictionary) -> void:
+	var audio_player = AudioManager.play_transformation_sound("rotate")
 	var angle = params.get("angle", 0.0)
 	var anchor_point = params.get("anchor", target.global_position)
 
@@ -24,6 +25,10 @@ func apply(target: Node2D, params: Dictionary) -> void:
 		tween.tween_property(target, "global_position", new_position, 0.5)
 	else:
 		tween.tween_property(target, "rotation_degrees", target.rotation_degrees + angle, 0.5)
+
+	# Stop audio when transformation completes
+	if audio_player != null:
+		tween.tween_callback(func(): audio_player.stop())
 
 func get_notation(params: Dictionary) -> String:
 	return "R(%d°)" % int(params.get("angle", 0))

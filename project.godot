@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GridHelper="*res://scripts/utils/GridHelper.gd"
 GlobalData="*res://scripts/autoloads/GlobalData.gd"
 MathUtils="*res://scripts/utils/MathUtils.gd"
+AudioManager="*res://scripts/autoloads/AudioManager.gd"
 
 [display]
 

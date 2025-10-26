@@ -93,8 +93,18 @@ func _on_parameter_confirmed(transformation_type: String, params: Dictionary) ->
 	if target == null:
 		return
 
+	# Capture starting position before transformation
+	var start_position = target.global_position
+
 	var transformation = transformation_instances[transformation_type]
 	target.apply_transformation(transformation, params)
+
+	# Wait for transformation to complete (0.5 seconds)
+	await get_tree().create_timer(0.5).timeout
+	var end_position = target.global_position
+
+	# Create visual trail
+	VisualEffects.create_transformation_trail(transformation_type, start_position, end_position, self)
 
 func _on_parameter_cancelled() -> void:
 	preview.hide_preview()
