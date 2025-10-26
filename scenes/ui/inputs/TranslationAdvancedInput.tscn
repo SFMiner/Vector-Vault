@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/inputs/TranslationAdvancedInput.gd" id="1_script"]
+
+[node name="TranslationAdvancedInput" type="VBoxContainer"]
+script = ExtResource("1_script")
+
+[node name="ModeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Move in any direction:"
+horizontal_alignment = 1
+
+[node name="XInput" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="XLabel" type="Label" parent="XInput"]
+layout_mode = 2
+text = "X:"
+custom_minimum_size = Vector2(30, 0)
+
+[node name="XSpinBox" type="SpinBox" parent="XInput"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+step = 1.0
+value = 0.0
+size_flags_horizontal = 3
+
+[node name="YInput" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="YLabel" type="Label" parent="YInput"]
+layout_mode = 2
+text = "Y:"
+custom_minimum_size = Vector2(30, 0)
+
+[node name="YSpinBox" type="SpinBox" parent="YInput"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+step = 1.0
+value = 0.0
+size_flags_horizontal = 3
+
+[node name="NotationLabel" type="Label" parent="."]
+layout_mode = 2
+text = "T(0, 0)"
+horizontal_alignment = 1
+modulate = Color(0.7, 0.7, 0.7, 1)

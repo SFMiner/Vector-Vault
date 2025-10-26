@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/inputs/ScalingAdvancedInput.gd" id="1_script"]
+
+[node name="ScalingAdvancedInput" type="VBoxContainer"]
+script = ExtResource("1_script")
+
+[node name="ModeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Set custom scale:"
+horizontal_alignment = 1
+
+[node name="ScaleInput" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="ScaleLabel" type="Label" parent="ScaleInput"]
+layout_mode = 2
+text = "Factor:"
+
+[node name="ScaleSpinBox" type="SpinBox" parent="ScaleInput"]
+layout_mode = 2
+min_value = 0.25
+max_value = 4.0
+step = 0.25
+value = 1.5
+custom_minimum_size = Vector2(100, 0)
+
+[node name="TimesLabel" type="Label" parent="ScaleInput"]
+layout_mode = 2
+text = "x"
+
+[node name="ScaleSlider" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ScaleSliderControl" type="HSlider" parent="ScaleSlider"]
+layout_mode = 2
+min_value = 0.25
+max_value = 4.0
+step = 0.25
+value = 1.5
+size_flags_horizontal = 3
+
+[node name="NotationLabel" type="Label" parent="."]
+layout_mode = 2
+text = "S(1.50)"
+horizontal_alignment = 1
+modulate = Color(0.7, 0.7, 0.7, 1)

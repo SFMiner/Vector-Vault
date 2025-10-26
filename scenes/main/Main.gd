@@ -3,13 +3,16 @@ extends Node2D
 var vector_tool: Node2D
 var radial_menu: Control
 var preview: Node2D
+var parameter_panel: Control
 var transformation_instances: Dictionary = {}
 var prev_menu_open: bool = false
+var targeting_locked: bool = false
 
 func _ready() -> void:
 	vector_tool = $Player/Sprite2D/VectorTool
 	radial_menu = $UI/RadialMenu
 	preview = $Preview
+	parameter_panel = $UI/TransformParameterPanel
 
 	var TranslationScript: GDScript = load("res://scripts/transformations/Translation.gd") as GDScript
 	var RotationScript: GDScript = load("res://scripts/transformations/Rotation.gd") as GDScript
@@ -20,8 +23,20 @@ func _ready() -> void:
 	transformation_instances["scale"] = ScalingScript.new()
 
 	radial_menu.transformation_selected.connect(_on_transformation_selected)
+	parameter_panel.parameter_confirmed.connect(_on_parameter_confirmed)
+	parameter_panel.parameter_cancelled.connect(_on_parameter_cancelled)
+	parameter_panel.parameters_changed.connect(_on_panel_parameters_changed)
 
 func _process(delta: float) -> void:
+	# Keep targeting locked while menu or panel is open
+	var should_lock_targeting = radial_menu.is_open or parameter_panel.visible
+	if should_lock_targeting and not targeting_locked:
+		vector_tool.lock_targeting()
+		targeting_locked = true
+	elif not should_lock_targeting and targeting_locked:
+		vector_tool.unlock_targeting()
+		targeting_locked = false
+
 	if radial_menu.is_open and not prev_menu_open:
 		var target = vector_tool.current_target
 		if target != null:
@@ -64,21 +79,30 @@ func _input(event: InputEvent) -> void:
 					radial_menu.open_at(get_global_mouse_position())
 
 func _on_transformation_selected(type: String) -> void:
+	var target = vector_tool.current_target
+	if target == null:
+		return
+
+	parameter_panel.open_for_transformation(type)
+
+func _on_parameter_confirmed(transformation_type: String, params: Dictionary) -> void:
 	preview.hide_preview()
+	radial_menu.close()
 
 	var target = vector_tool.current_target
 	if target == null:
 		return
 
-	var transformation = transformation_instances[type]
-	var params = {}
-
-	match type:
-		"translate":
-			params = {"offset": Vector2(96, 0)}
-		"rotate":
-			params = {"angle": 90.0}
-		"scale":
-			params = {"scale": 1.5}
-
+	var transformation = transformation_instances[transformation_type]
 	target.apply_transformation(transformation, params)
+
+func _on_parameter_cancelled() -> void:
+	preview.hide_preview()
+	radial_menu.close()
+
+func _on_panel_parameters_changed(transformation_type: String, params: Dictionary) -> void:
+	var target = vector_tool.current_target
+	if target == null:
+		return
+
+	preview.show_preview(target, transformation_type, params)

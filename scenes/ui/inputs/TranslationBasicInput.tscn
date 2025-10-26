@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/inputs/TranslationBasicInput.gd" id="1_script"]
+
+[node name="TranslationBasicInput" type="VBoxContainer"]
+script = ExtResource("1_script")
+
+[node name="ModeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Move along one axis:"
+horizontal_alignment = 1
+
+[node name="AxisSelection" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="XAxisButton" type="Button" parent="AxisSelection"]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "X-Axis"
+custom_minimum_size = Vector2(80, 0)
+
+[node name="YAxisButton" type="Button" parent="AxisSelection"]
+layout_mode = 2
+toggle_mode = true
+button_pressed = false
+text = "Y-Axis"
+custom_minimum_size = Vector2(80, 0)
+
+[node name="ValueInput" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="ValueLabel" type="Label" parent="ValueInput"]
+layout_mode = 2
+text = "Distance:"
+
+[node name="DistanceSpinBox" type="SpinBox" parent="ValueInput"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+step = 1.0
+value = 1.0
+custom_minimum_size = Vector2(80, 0)
+
+[node name="NotationLabel" type="Label" parent="."]
+layout_mode = 2
+text = "T(1, 0)"
+horizontal_alignment = 1
+modulate = Color(0.7, 0.7, 0.7, 1)

@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/inputs/RotationAdvancedInput.gd" id="1_script"]
+
+[node name="RotationAdvancedInput" type="VBoxContainer"]
+script = ExtResource("1_script")
+
+[node name="ModeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Set custom rotation:"
+horizontal_alignment = 1
+
+[node name="AngleInput" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="AngleLabel" type="Label" parent="AngleInput"]
+layout_mode = 2
+text = "Angle:"
+
+[node name="AngleSpinBox" type="SpinBox" parent="AngleInput"]
+layout_mode = 2
+min_value = -180.0
+max_value = 180.0
+step = 15.0
+value = 90.0
+custom_minimum_size = Vector2(100, 0)
+
+[node name="DegreeLabel" type="Label" parent="AngleInput"]
+layout_mode = 2
+text = "°"
+
+[node name="AngleSlider" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="AngleSliderControl" type="HSlider" parent="AngleSlider"]
+layout_mode = 2
+min_value = -180.0
+max_value = 180.0
+step = 15.0
+value = 90.0
+size_flags_horizontal = 3
+
+[node name="NotationLabel" type="Label" parent="."]
+layout_mode = 2
+text = "R(90°)"
+horizontal_alignment = 1
+modulate = Color(0.7, 0.7, 0.7, 1)

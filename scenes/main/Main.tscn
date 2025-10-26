@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bafy485c4p00m"]
+[gd_scene load_steps=8 format=3 uid="uid://bafy485c4p00m"]
 
 [ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
 [ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformPreview.tscn" id="1_preview"]
 [ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="1_radialmenu"]
 [ext_resource type="Script" uid="uid://b05533ybls5s2" path="res://scenes/main/Main.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://bl5pcov8dxdo" path="res://scenes/ui/TransformPreview.tscn" id="1_preview"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="6_1rhdn"]
 
 [sub_resource type="RectangleShape2D" id="floor_shape"]
 size = Vector2(800, 50)
@@ -32,3 +33,10 @@ shape = SubResource("floor_shape")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="RadialMenu" parent="UI" instance=ExtResource("1_radialmenu")]
+
+[node name="TransformParameterPanel" parent="UI" instance=ExtResource("6_1rhdn")]
+layout_mode = 3
+offset_left = -276.0
+offset_top = -191.0
+offset_right = 24.0
+offset_bottom = 9.0
