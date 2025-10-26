@@ -21,12 +21,18 @@ GridHelper="*res://scripts/utils/GridHelper.gd"
 GlobalData="*res://scripts/autoloads/GlobalData.gd"
 MathUtils="*res://scripts/utils/MathUtils.gd"
 AudioManager="*res://scripts/autoloads/AudioManager.gd"
+Analytics_Manager="*res://scripts/autoloads/AnalyticsManager.gd"
+Console="*res://addons/console/console.gd"
 
 [display]
 
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/console/plugin.cfg")
 
 [input]
 

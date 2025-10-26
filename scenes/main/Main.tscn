@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="1_radialmenu"]
 [ext_resource type="Script" uid="uid://b05533ybls5s2" path="res://scenes/main/Main.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="6_1rhdn"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="debug_panel"]
 
 [sub_resource type="RectangleShape2D" id="floor_shape"]
 size = Vector2(800, 50)
@@ -40,3 +41,5 @@ offset_left = -276.0
 offset_top = -191.0
 offset_right = 24.0
 offset_bottom = 9.0
+
+[node name="DebugPanel" parent="UI" instance=ExtResource("debug_panel")]

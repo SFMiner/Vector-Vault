@@ -27,6 +27,9 @@ func _ready() -> void:
 	parameter_panel.parameter_cancelled.connect(_on_parameter_cancelled)
 	parameter_panel.parameters_changed.connect(_on_panel_parameters_changed)
 
+	Analytics_Manager.start_level("Test Level")
+
+
 func _process(delta: float) -> void:
 	# Keep targeting locked while menu or panel is open
 	var should_lock_targeting = radial_menu.is_open or parameter_panel.visible
@@ -97,6 +100,9 @@ func _on_parameter_confirmed(transformation_type: String, params: Dictionary) ->
 	var start_position = target.global_position
 
 	var transformation = transformation_instances[transformation_type]
+	var notation = transformation.get_notation(params)
+	Analytics_Manager.record_transformation(transformation_type, params, notation)
+
 	target.apply_transformation(transformation, params)
 
 	# Wait for transformation to complete (0.5 seconds)
