@@ -9,7 +9,7 @@ var transformation_instances: Dictionary = {}
 var prev_menu_open: bool = false
 var targeting_locked: bool = false
 
-func _ready() ->void:
+func _ready() -> void:
 	vector_tool = $Player/Sprite2D/VectorTool
 	radial_menu = $UI/RadialMenu
 	preview = $UI/TransformPreview
@@ -134,12 +134,22 @@ func _on_level_complete() -> void:
 	level_complete_panel.show_results(transform_count, completion_time)
 
 func setup_level() -> void:
-	var movable_block = $MovableBlock
-	var target_position_marker = $TargetPosition
+	var block1 = $Block1
+	var block2 = $Block2
+	var target1_marker = $Target1
+	var target2_marker = $Target2
 
-	var pos_condition = PositionCondition.new()
-	pos_condition.target_object = movable_block
-	pos_condition.target_position = target_position_marker.global_position
-	pos_condition.tolerance = 10.0
+	var pos_condition1 = PositionCondition.new()
+	pos_condition1.target_object = block1
+	pos_condition1.target_position = target1_marker.global_position
+	pos_condition1.tolerance = 10.0
 
-	completion_conditions = [pos_condition]
+	var pos_condition2 = PositionCondition.new()
+	pos_condition2.target_object = block2
+	pos_condition2.target_position = target2_marker.global_position
+	pos_condition2.tolerance = 10.0
+
+	completion_conditions = [pos_condition1, pos_condition2]
+
+	block1.transformation_completed.connect(check_completion)
+	block2.transformation_completed.connect(check_completion)

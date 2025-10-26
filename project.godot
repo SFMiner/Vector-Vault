@@ -23,6 +23,7 @@ MathUtils="*res://scripts/utils/MathUtils.gd"
 AudioManager="*res://scripts/autoloads/AudioManager.gd"
 Analytics_Manager="*res://scripts/autoloads/AnalyticsManager.gd"
 Console="*res://addons/console/console.gd"
+LevelManager="*res://scripts/autoloads/LevelManager.gd"
 
 [display]
 

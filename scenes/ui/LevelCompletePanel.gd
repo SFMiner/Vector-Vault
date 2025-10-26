@@ -1,7 +1,7 @@
 extends Panel
 
-signal continue_pressed()
-signal retry_pressed()
+signal next_level_requested()
+signal retry_requested()
 
 @onready var transform_count_label = $VBoxContainer/TransformCountLabel
 @onready var time_label = $VBoxContainer/TimeLabel
@@ -13,10 +13,10 @@ func _ready() -> void:
 	modulate.a = 0.0
 
 	continue_button.pressed.connect(func():
-		continue_pressed.emit()
+		next_level_requested.emit()
 	)
 	retry_button.pressed.connect(func():
-		retry_pressed.emit()
+		retry_requested.emit()
 	)
 
 func show_results(transform_count: int, time_ms: int) -> void:
