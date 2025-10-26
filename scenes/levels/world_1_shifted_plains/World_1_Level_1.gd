@@ -30,8 +30,6 @@ func _ready() ->void:
 	parameter_panel.parameters_changed.connect(_on_panel_parameters_changed)
 	level_completed.connect(_on_level_complete)
 
-	Analytics_Manager.start_level(level_name)
-
 	super._ready()
 
 func _process(delta: float) -> void:
@@ -129,10 +127,9 @@ func _on_level_complete() -> void:
 	var transform_count = 0
 	var completion_time = 0
 
-	if level_name in Analytics_Manager.session_data:
-		var level_data = Analytics_Manager.session_data[level_name]
-		transform_count = level_data.transformations.size()
-		completion_time = level_data.completion_time
+	if not Analytics_Manager.current_level_stats.is_empty():
+		transform_count = Analytics_Manager.current_level_stats.transformations.size()
+		completion_time = Time.get_ticks_msec() - Analytics_Manager.current_level_stats.start_time
 
 	level_complete_panel.show_results(transform_count, completion_time)
 
