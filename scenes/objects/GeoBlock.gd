@@ -17,6 +17,7 @@ var is_selected: bool = false
 func _ready() -> void:
 	original_transform = transform
 	add_to_group("geo_blocks")
+	$Label.text = str(scale)
 
 func set_selected(value: bool) -> void:
 	is_selected = value
@@ -30,7 +31,9 @@ func set_selected(value: bool) -> void:
 func apply_transformation(transformation: TransformationBase, params: Dictionary) -> void:
 	transformation.apply(self, params)
 	transformation_completed.emit()
+	$Label.text = str(scale)
 
 func reset_to_original() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "transform", original_transform, 0.3)
+	$Label.text = str(scale)

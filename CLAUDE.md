@@ -97,3 +97,28 @@ var target_transform = Transform2D(deg_to_rad(rotation_degrees), position)
 ```
 
 **Debug tip:** If a node has missing children or properties you expect, check if the wrong scene is being instantiated by looking at the resource IDs and paths.
+
+## Level Design: Transformation Lock Strategy
+
+**Issue:** When teaching a specific transformation (e.g., scaling), players might find alternative solutions using other transformations if they're not properly locked.
+
+**Example:** World_3_Level_1 teaches scaling by making a small block bigger to reach a ledge. However, players could also translate the block upward to achieve the same result.
+
+**Rule:** Lock transformations that would create alternate solutions:
+- If teaching **scaling**: lock `can_translate` and `can_rotate`
+- If teaching **rotation**: lock `can_translate` and `can_scale`
+- If teaching **translation**: lock `can_rotate` and `can_scale`
+
+**Implementation in level script:**
+```gdscript
+var target_block = $BlockName
+target_block.can_translate = false  # Only allow rotation
+target_block.can_scale = false
+
+# OR in .tscn scene:
+# [node name="BlockName" instance=...]
+# can_translate = false
+# can_scale = false
+```
+
+This ensures players must use the intended transformation to solve the puzzle.

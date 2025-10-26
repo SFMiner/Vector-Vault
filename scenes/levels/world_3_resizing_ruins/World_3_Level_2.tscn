@@ -1,0 +1,204 @@
+[gd_scene load_steps=12 format=3 uid="uid://dt70r5se4imox"]
+
+[ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
+[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://c3ek8c3k7e3fk" path="res://scenes/levels/world_3_resizing_ruins/World_3_Level_2.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/objects/Door.tscn" id="door"]
+[ext_resource type="PackedScene" path="res://scenes/objects/PressurePlate.tscn" id="pressure_plate"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformPreview.tscn" id="ui_preview"]
+[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="ui_radialmenu"]
+
+[sub_resource type="RectangleShape2D" id="main_platform"]
+size = Vector2(800, 50)
+
+[node name="World_3_Level_2" type="Node2D"]
+script = ExtResource("1_script")
+level_name = "Ruins 3-2"
+world_number = 3
+level_number = 2
+
+[node name="H_Lines" type="Node2D" parent="."]
+position = Vector2(192, 466.99997)
+scale = Vector2(1.14, 1.14)
+
+[node name="Line2D5" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 0)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(0, 1, 0, 1)
+
+[node name="Line2D6" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 7)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(1, 0, 1, 1)
+
+[node name="Line2D" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 14.085083)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(0, 1, 1, 1)
+
+[node name="Line2D3" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 21.914917)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 29)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+
+[node name="Line2D4" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 36)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+
+[node name="Line2D8" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 43.829834)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(0, 1, 1, 1)
+
+[node name="Line2D9" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 50.914917)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(1, 0, 1, 1)
+
+[node name="Line2D10" type="Line2D" parent="H_Lines"]
+position = Vector2(-0.34000015, 57.914917)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(0, 1, 0, 1)
+
+[node name="v_Lines2" type="Node2D" parent="."]
+position = Vector2(333, 379.99997)
+rotation = 1.5707964
+scale = Vector2(1.14, 1.14)
+
+[node name="Line2D5" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 0)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(0, 1, 0, 1)
+
+[node name="Line2D6" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 7)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(1, 0, 1, 1)
+
+[node name="Line2D" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 14.085083)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(0, 1, 1, 1)
+
+[node name="Line2D3" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 21.914917)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 29)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+
+[node name="Line2D4" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 36)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+
+[node name="Line2D8" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 43.829834)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(0, 1, 1, 1)
+
+[node name="Line2D9" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 50.914917)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(1, 0, 1, 1)
+
+[node name="Line2D10" type="Line2D" parent="v_Lines2"]
+position = Vector2(-0.34000015, 57.914917)
+scale = Vector2(2.02, 1)
+points = PackedVector2Array(18, 0, 94, 0)
+width = 1.0
+default_color = Color(0, 1, 0, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(150, 500)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="MainPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(400, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/MainPlatform"]
+shape = SubResource("main_platform")
+
+[node name="WeightBlock" parent="." instance=ExtResource("1_geoblock")]
+position = Vector2(300, 500)
+scale = Vector2(0.5, 0.5)
+
+[node name="PressurePlate" parent="." instance=ExtResource("pressure_plate")]
+position = Vector2(450, 542)
+required_weight = 2.0
+
+[node name="Door" parent="." instance=ExtResource("door")]
+position = Vector2(600, 486)
+
+[node name="GoalDoor" type="Marker2D" parent="."]
+position = Vector2(750, 500)
+
+[node name="HintLabel" type="Label" parent="."]
+offset_left = 250.0
+offset_top = 400.0
+offset_right = 550.0
+offset_bottom = 440.0
+text = "Make the block heavier to activate the plate!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="RadialMenu" parent="UI" instance=ExtResource("ui_radialmenu")]
+
+[node name="TransformPreview" parent="UI" instance=ExtResource("ui_preview")]
+
+[node name="TransformParameterPanel" parent="UI" instance=ExtResource("ui_panel")]
+layout_mode = 3
+
+[node name="DebugPanel" parent="UI" instance=ExtResource("ui_debug")]
+layout_mode = 3
+anchors_preset = 1
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="LevelCompletePanel" parent="UI" instance=ExtResource("ui_complete")]
+layout_mode = 3
+grow_horizontal = 2
+grow_vertical = 2

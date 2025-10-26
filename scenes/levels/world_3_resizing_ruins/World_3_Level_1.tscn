@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://dtb6jflh20740"]
+
+[ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
+[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://co7n1cn0ftjd2" path="res://scenes/levels/world_3_resizing_ruins/World_3_Level_1.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformPreview.tscn" id="ui_preview"]
+[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="ui_radialmenu"]
+
+[sub_resource type="RectangleShape2D" id="main_platform"]
+size = Vector2(600, 50)
+
+[sub_resource type="RectangleShape2D" id="high_ledge"]
+size = Vector2(200, 50)
+
+[node name="World_3_Level_1" type="Node2D"]
+script = ExtResource("1_script")
+level_name = "Ruins 3-1"
+world_number = 3
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(150, 500)
+
+[node name="ScalableStep" parent="." instance=ExtResource("1_geoblock")]
+position = Vector2(400, 500)
+can_translate = false
+can_rotate = false
+
+[node name="GoalDoor" type="Marker2D" parent="."]
+position = Vector2(750, 300)
+
+[node name="HintLabel" type="Label" parent="."]
+offset_left = 250.0
+offset_top = 400.0
+offset_right = 550.0
+offset_bottom = 440.0
+text = "Make it bigger to reach the ledge! (S)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="MainPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(400, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/MainPlatform"]
+shape = SubResource("main_platform")
+
+[node name="ColorRect" type="ColorRect" parent="Floor/MainPlatform"]
+offset_left = -308.0
+offset_top = -18.0
+offset_right = 299.0
+offset_bottom = 26.0
+
+[node name="HighLedge" type="StaticBody2D" parent="Floor"]
+position = Vector2(650, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/HighLedge"]
+shape = SubResource("high_ledge")
+
+[node name="ColorRect" type="ColorRect" parent="Floor/HighLedge"]
+offset_left = -100.0
+offset_top = -22.0
+offset_right = 100.0
+offset_bottom = 24.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="RadialMenu" parent="UI" instance=ExtResource("ui_radialmenu")]
+
+[node name="TransformPreview" parent="UI" instance=ExtResource("ui_preview")]
+
+[node name="TransformParameterPanel" parent="UI" instance=ExtResource("ui_panel")]
+visible = false
+layout_mode = 3
+
+[node name="DebugPanel" parent="UI" instance=ExtResource("ui_debug")]
+layout_mode = 3
+anchors_preset = 1
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="LevelCompletePanel" parent="UI" instance=ExtResource("ui_complete")]
+visible = false
+layout_mode = 3
+grow_horizontal = 2
+grow_vertical = 2

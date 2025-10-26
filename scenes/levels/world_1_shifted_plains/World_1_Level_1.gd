@@ -25,6 +25,7 @@ func _ready() ->void:
 	transformation_instances["scale"] = ScalingScript.new()
 
 	radial_menu.transformation_selected.connect(_on_transformation_selected)
+	radial_menu.scale_changed.connect(_on_scale_preview_changed)
 	parameter_panel.parameter_confirmed.connect(_on_parameter_confirmed)
 	parameter_panel.parameter_cancelled.connect(_on_parameter_cancelled)
 	parameter_panel.parameters_changed.connect(_on_panel_parameters_changed)
@@ -84,12 +85,30 @@ func _input(event: InputEvent) -> void:
 				if vector_tool.current_target != null:
 					radial_menu.open_at(get_global_mouse_position())
 
-func _on_transformation_selected(type: String) -> void:
+func _on_transformation_selected(type: String, params: Dictionary = {}) -> void:
 	var target = vector_tool.current_target
 	if target == null:
 		return
 
-	parameter_panel.open_for_transformation(type)
+	# If params are provided (e.g., from scale spinbox), apply directly
+	if not params.is_empty():
+		var start_position = target.global_position
+
+		var final_params = vector_tool.prepare_transformation_params(type, params)
+
+		var transformation = transformation_instances[type]
+		var notation = transformation.get_notation(final_params)
+		Analytics_Manager.record_transformation(type, final_params, notation)
+
+		target.apply_transformation(transformation, final_params)
+
+		await get_tree().create_timer(0.5).timeout
+		var end_position = target.global_position
+
+		VisualEffects.create_transformation_trail(type, start_position, end_position, self)
+	else:
+		# Otherwise open parameter panel for manual input
+		parameter_panel.open_for_transformation(type)
 
 func _on_parameter_confirmed(transformation_type: String, params: Dictionary) -> void:
 	preview.hide_preview()
@@ -125,6 +144,13 @@ func _on_panel_parameters_changed(transformation_type: String, params: Dictionar
 		return
 
 	preview.show_preview(target, transformation_type, params)
+
+func _on_scale_preview_changed(scale_value: float) -> void:
+	var target = vector_tool.current_target
+	if target == null:
+		return
+
+	preview.show_preview(target, "scale", {"scale": scale_value})
 
 func _on_level_complete() -> void:
 	var transform_count = 0

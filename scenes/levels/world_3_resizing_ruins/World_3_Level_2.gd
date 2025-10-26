@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 	if radial_menu.is_open and not prev_menu_open:
 		var target = vector_tool.current_target
 		if target != null:
-			preview.show_preview(target, "rotate", {"angle": 45.0})
+			preview.show_preview(target, "scale", {"scale": 1.5})
 		prev_menu_open = true
 		_connect_button_hover()
 	elif not radial_menu.is_open and prev_menu_open:
@@ -62,7 +62,7 @@ func _connect_button_hover() -> void:
 		preview.show_preview(target, "translate", {"offset": Vector2(96, 0)})
 	)
 	radial_menu.get_node("RotateButton").mouse_entered.connect(func():
-		preview.show_preview(target, "rotate", {"angle": 45.0})
+		preview.show_preview(target, "rotate", {"angle": 90.0})
 	)
 	radial_menu.get_node("ScaleButton").mouse_entered.connect(func():
 		preview.show_preview(target, "scale", {"scale": 1.5})
@@ -162,17 +162,18 @@ func _on_level_complete() -> void:
 	level_complete_panel.show_results(transform_count, completion_time)
 
 func setup_level() -> void:
-	var arm = $Arm
-	var target_marker = $Target
+	var pressure_plate = $PressurePlate
+	var door = $Door
+	var goal_door = $GoalDoor
 
-	# Create target transform with arm at target position
-	var target_transform = Transform2D(arm.rotation, target_marker.global_position)
+	# Connect pressure plate to door
+	pressure_plate.activated.connect(door.open)
+	pressure_plate.deactivated.connect(door.close)
 
-	var position_condition = AlignmentCondition.new()
-	position_condition.target_object = arm
-	position_condition.target_transform = target_transform
-	position_condition.position_tolerance = 15.0  # Allow some position drift from rotation
-	position_condition.rotation_tolerance = 10.0  # Rotation doesn't matter, just position
-	position_condition.scale_tolerance = 0.1
+	# Completion condition: player reaches goal
+	var position_condition = PositionCondition.new()
+	position_condition.target_object = player
+	position_condition.target_position = goal_door.global_position
+	position_condition.tolerance = 50.0
 
 	completion_conditions = [position_condition]
