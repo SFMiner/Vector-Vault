@@ -25,6 +25,10 @@ func record_transformation(type: String, params: Dictionary, notation: String) -
 	current_level_stats.transformations.append(record)
 
 func complete_level() -> void:
+	if current_level_stats.is_empty():
+		push_warning("AnalyticsManager: No active level to complete")
+		return
+
 	var completion_time = Time.get_ticks_msec() - current_level_stats.start_time
 	current_level_stats.completion_time = completion_time
 
