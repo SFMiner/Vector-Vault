@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://bvs3reorao262"]
+
+[ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
+[ext_resource type="Script" uid="uid://duda30i2icypf" path="res://scenes/levels/world_2_pivoting_spires/World_2_Level_1.gd" id="1_p4rvw"]
+[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformPreview.tscn" id="ui_preview"]
+[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="ui_radialmenu"]
+
+[sub_resource type="RectangleShape2D" id="left_platform"]
+size = Vector2(300, 50)
+
+[sub_resource type="RectangleShape2D" id="right_platform"]
+size = Vector2(300, 50)
+
+[node name="World_2_Level_1" type="Node2D"]
+script = ExtResource("1_p4rvw")
+level_name = "Spires 2-1"
+world_number = 2
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(150, 400)
+
+[node name="RotatingBridge" parent="." instance=ExtResource("1_geoblock")]
+position = Vector2(450, 300)
+rotation = 1.5708
+
+[node name="TargetRotation" type="Marker2D" parent="."]
+position = Vector2(550, 400)
+
+[node name="TargetRotationMarker" type="ColorRect" parent="."]
+offset_left = 534.0
+offset_top = 384.0
+offset_right = 566.0
+offset_bottom = 416.0
+color = Color(0, 1, 0, 0.2)
+
+[node name="GoalDoor" type="Marker2D" parent="."]
+position = Vector2(750, 400)
+
+[node name="HintLabel" type="Label" parent="."]
+offset_left = 300.0
+offset_top = 160.0
+offset_right = 600.0
+offset_bottom = 200.0
+text = "Rotate the bridge! (R)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="LeftPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(200, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/LeftPlatform"]
+shape = SubResource("left_platform")
+
+[node name="RightPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(600, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/RightPlatform"]
+shape = SubResource("right_platform")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="RadialMenu" parent="UI" instance=ExtResource("ui_radialmenu")]
+
+[node name="TransformPreview" parent="UI" instance=ExtResource("ui_preview")]
+
+[node name="TransformParameterPanel" parent="UI" instance=ExtResource("ui_panel")]
+layout_mode = 3
+
+[node name="DebugPanel" parent="UI" instance=ExtResource("ui_debug")]
+layout_mode = 3
+anchors_preset = 1
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="LevelCompletePanel" parent="UI" instance=ExtResource("ui_complete")]
+layout_mode = 3
+grow_horizontal = 2
+grow_vertical = 2

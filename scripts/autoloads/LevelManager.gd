@@ -5,13 +5,17 @@ var unlocked_levels: Dictionary = {"Plains 1-1": true}
 var level_paths: Dictionary = {
 	"Plains 1-1": "res://scenes/levels/world_1_shifted_plains/World_1_Level_1.tscn",
 	"Plains 1-2": "res://scenes/levels/world_1_shifted_plains/World_1_Level_2.tscn",
-	"Plains 1-3": "res://scenes/levels/world_1_shifted_plains/World_1_Level_3.tscn"
+	"Plains 1-3": "res://scenes/levels/world_1_shifted_plains/World_1_Level_3.tscn",
+	"Spires 2-1": "res://scenes/levels/world_2_pivoting_spires/World_2_Level_1.tscn",
+	"Spires 2-2": "res://scenes/levels/world_2_pivoting_spires/World_2_Level_2.tscn"
 }
 
 var level_order: Array[String] = [
 	"Plains 1-1",
 	"Plains 1-2",
-	"Plains 1-3"
+	"Plains 1-3",
+	"Spires 2-1",
+	"Spires 2-2"
 ]
 
 func load_level(level_name: String) -> void:

@@ -9,12 +9,11 @@ var transformation_instances: Dictionary = {}
 var prev_menu_open: bool = false
 var targeting_locked: bool = false
 
-func _ready() ->void:
+func _ready() -> void:
 	vector_tool = $Player/Sprite2D/VectorTool
 	radial_menu = $UI/RadialMenu
 	preview = $UI/TransformPreview
 	parameter_panel = $UI/TransformParameterPanel
-	level_complete_panel = $UI/LevelCompletePanel
 
 	var TranslationScript: GDScript = load("res://scripts/transformations/Translation.gd") as GDScript
 	var RotationScript: GDScript = load("res://scripts/transformations/Rotation.gd") as GDScript
@@ -44,7 +43,7 @@ func _process(delta: float) -> void:
 	if radial_menu.is_open and not prev_menu_open:
 		var target = vector_tool.current_target
 		if target != null:
-			preview.show_preview(target, "translate", {"offset": Vector2(96, 0)})
+			preview.show_preview(target, "rotate", {"angle": 90.0})
 		prev_menu_open = true
 		_connect_button_hover()
 	elif not radial_menu.is_open and prev_menu_open:
@@ -137,12 +136,18 @@ func _on_level_complete() -> void:
 	level_complete_panel.show_results(transform_count, completion_time)
 
 func setup_level() -> void:
-	var movable_block = $MovableBlock
-	var target_position_marker = $TargetPosition
+	GlobalData.unlock_transformation("rotate")
 
-	var pos_condition = PositionCondition.new()
-	pos_condition.target_object = movable_block
-	pos_condition.target_position = target_position_marker.global_position
-	pos_condition.tolerance = 10.0
+	var rotating_bridge = $RotatingBridge
 
-	completion_conditions = [pos_condition]
+	# Create target transform with bridge at horizontal rotation (0°)
+	var target_transform = Transform2D(0.0, rotating_bridge.global_position)
+
+	var rotation_condition = AlignmentCondition.new()
+	rotation_condition.target_object = rotating_bridge
+	rotation_condition.target_transform = target_transform
+	rotation_condition.position_tolerance = 10.0  # Allow slight position drift
+	rotation_condition.rotation_tolerance = 5.0  # 5° tolerance
+	rotation_condition.scale_tolerance = 0.1
+
+	completion_conditions = [rotation_condition]

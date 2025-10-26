@@ -101,11 +101,14 @@ func _on_parameter_confirmed(transformation_type: String, params: Dictionary) ->
 
 	var start_position = target.global_position
 
-	var transformation = transformation_instances[transformation_type]
-	var notation = transformation.get_notation(params)
-	Analytics_Manager.record_transformation(transformation_type, params, notation)
+	# Prepare parameters with anchor support
+	var final_params = vector_tool.prepare_transformation_params(transformation_type, params)
 
-	target.apply_transformation(transformation, params)
+	var transformation = transformation_instances[transformation_type]
+	var notation = transformation.get_notation(final_params)
+	Analytics_Manager.record_transformation(transformation_type, final_params, notation)
+
+	target.apply_transformation(transformation, final_params)
 
 	await get_tree().create_timer(0.5).timeout
 	var end_position = target.global_position

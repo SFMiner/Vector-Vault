@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=3 uid="uid://dvy4q6rhq8c5"]
+
+[ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
+[ext_resource type="Script" path="res://scenes/levels/world_2_pivoting_spires/World_2_Level_2.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://cmfydtj541u0l" path="res://scenes/objects/Anchor.tscn" id="anchor"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LevelCompletePanel.tscn" id="ui_complete"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugPanel.tscn" id="ui_debug"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformParameterPanel.tscn" id="ui_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TransformPreview.tscn" id="ui_preview"]
+[ext_resource type="PackedScene" uid="uid://cb6irro5c8n6x" path="res://scenes/ui/RadialMenu.tscn" id="ui_radialmenu"]
+
+[sub_resource type="RectangleShape2D" id="bottom_platform"]
+size = Vector2(800, 50)
+
+[sub_resource type="RectangleShape2D" id="middle_left"]
+size = Vector2(200, 50)
+
+[sub_resource type="RectangleShape2D" id="middle_right"]
+size = Vector2(200, 50)
+
+[node name="World_2_Level_2" type="Node2D"]
+script = ExtResource("1_script")
+level_name = "Spires 2-2"
+world_number = 2
+level_number = 2
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(100, 500)
+
+[node name="Arm" parent="." instance=ExtResource("1_geoblock")]
+position = Vector2(400, 350)
+can_translate = false
+
+[node name="Pivot" parent="." instance=ExtResource("anchor")]
+position = Vector2(400, 450)
+
+[node name="Target" type="Marker2D" parent="."]
+position = Vector2(600, 300)
+
+[node name="TargetMarker" type="ColorRect" parent="."]
+offset_left = 584.0
+offset_top = 284.0
+offset_right = 616.0
+offset_bottom = 316.0
+color = Color(0, 1, 0, 0.2)
+
+[node name="GoalDoor" type="Marker2D" parent="."]
+position = Vector2(700, 350)
+
+[node name="HintLabel" type="Label" parent="."]
+offset_left = 300.0
+offset_top = 200.0
+offset_right = 500.0
+offset_bottom = 240.0
+text = "Rotate around the golden anchor!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="BottomPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(400, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/BottomPlatform"]
+shape = SubResource("bottom_platform")
+
+[node name="MiddleLeftPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(200, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/MiddleLeftPlatform"]
+shape = SubResource("middle_left")
+
+[node name="MiddleRightPlatform" type="StaticBody2D" parent="Floor"]
+position = Vector2(600, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/MiddleRightPlatform"]
+shape = SubResource("middle_right")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="RadialMenu" parent="UI" instance=ExtResource("ui_radialmenu")]
+
+[node name="TransformPreview" parent="UI" instance=ExtResource("ui_preview")]
+
+[node name="TransformParameterPanel" parent="UI" instance=ExtResource("ui_panel")]
+layout_mode = 3
+
+[node name="DebugPanel" parent="UI" instance=ExtResource("ui_debug")]
+layout_mode = 3
+anchors_preset = 1
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="LevelCompletePanel" parent="UI" instance=ExtResource("ui_complete")]
+layout_mode = 3
+grow_horizontal = 2
+grow_vertical = 2

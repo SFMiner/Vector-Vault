@@ -53,3 +53,47 @@ offset_bottom = 40.0   (positive half-height)
 ```
 
 This creates an 80×80 control centered at (0,0) relative to its parent.
+
+## Transform2D Construction (Godot 4.5)
+
+**Issue:** Transform2D rotation cannot be set via property assignment. Use the constructor instead.
+
+**Rule:** Create Transform2D with constructor: `Transform2D(rotation: float, position: Vector2)`
+
+**Correct approach:**
+```gdscript
+var rotation_radians = 0.0
+var position = Vector2(100, 200)
+var target_transform = Transform2D(rotation_radians, position)
+
+# For rotation in degrees, convert first:
+var rotation_degrees = 45.0
+var target_transform = Transform2D(deg_to_rad(rotation_degrees), position)
+```
+
+**DO NOT use:**
+- ❌ `target_transform.rotation = 0.0` (property not assignable)
+- ❌ `target_transform.set_rotation(0.0)` (does not exist)
+- ❌ `target_transform.origin = Vector2(100, 200)` after construction (use constructor instead)
+
+## Resource ID Mismatch in .tscn Files (Godot 4.5)
+
+**Issue:** When copying/creating .tscn files, external resource IDs can get mismatched between `[ext_resource]` declarations and `[node]` instantiations. This causes nodes to instantiate the wrong scene.
+
+**Example of the problem:**
+```
+[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_geoblock"]
+[ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_player"]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]  # Wrong! Gets GeoBlock
+```
+
+**Solution:** Verify that resource IDs match their content:
+```
+[ext_resource type="PackedScene" uid="uid://drj30p1g7qnty" path="res://scenes/objects/GeoBlock.tscn" id="1_geoblock"]
+[ext_resource type="PackedScene" uid="uid://g27uaq6vyubh" path="res://scenes/player/Player.tscn" id="1_player"]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]  # Correct
+```
+
+**Debug tip:** If a node has missing children or properties you expect, check if the wrong scene is being instantiated by looking at the resource IDs and paths.
